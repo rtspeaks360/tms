@@ -10,7 +10,7 @@ from sqlalchemy import create_engine
 Base = declarative_base()
 
 # Various models for application support. 
-class Stduent(Base):
+class Student(Base):
 
 	"""Provides the structure for students table in the database."""
 
