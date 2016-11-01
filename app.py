@@ -14,7 +14,8 @@ session = DBSession()
 @app.route('/')
 @app.route('/index')
 def homePage():
-	return "Home Page!"
+	render_template('index.html')
+	#return "Home Page!"
 
 @app.route('/driver')
 def showDrivers():
@@ -23,6 +24,10 @@ def showDrivers():
 @app.route('/driver/new')
 def addDrivers():
 	return "Add new driver page"
+
+@app.route('/driver/<int:driver_id>')
+def showDriverDetails():
+	return "Driver Details Page!"
 
 @app.route('/driver/<int:driver_id>/edit')
 def editDrivers(driver_id):
@@ -39,6 +44,10 @@ def showVehicles():
 @app.route('/vehicle/new')
 def addVehicles():
 	return "Add new vehicle page"
+
+@app.route('/vehicle/<int:driver_id>')
+def showDriverDetails():
+	return "Vehicle Details Page!"
 
 @app.route('/vehicle/<int:vehicle_id>/edit')
 def editVehicles(vehicle_id):

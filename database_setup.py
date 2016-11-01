@@ -31,6 +31,23 @@ class Student(Base):
 	route_id = Column(Integer, ForeignKey('routes.id'))
 	route = relationship("Route", back_populates = "students")
 
+	@property
+	def serialize(self):
+		return {
+			student_id = self.id,
+			name = self.name,
+			roll_no = self.roll_no,
+			contact = self.contact,
+			son_of = self.son_of,
+			branch = self.branch,
+			course = self.course,
+			year = self.year,
+			college = self.college,
+			issue_date = self.issue_date,
+			end_date = self.end_date,
+			route_number = self.route.route_number
+		}
+
 class Driver(Base):
 
 	"""Provides the structure for the drivers table in the database."""
@@ -47,6 +64,19 @@ class Driver(Base):
 
 	vehicle_assigned = relationship("Vehicle", uselist = False, back_populates = "driver")
 
+	@property
+	def serialize(self):
+		return {
+			driver_id = self.id,
+			name = self.name,
+			son_of = self.son_of,
+			contact = self.contact,
+			address = self.address,
+			license_type = self.license_type,
+			license_number = self.license_number
+			current_duty = self.vehicle_assigned.vehicle_number
+		}
+
 class Route(Base):
 
 	"""Provides the structure for the routes table in the database."""
@@ -60,6 +90,16 @@ class Route(Base):
 	students = relationship("Student", back_populates = "route")
 	
 	vehicle_assigned = relationship("Vehicle", uselist = False, back_populates = "route")
+
+	@property
+	def serialize(self):
+		return {
+			route_id = self.id,
+			route_number = self.route_number,
+			destination_city = self.route_number
+			vehicle_assigned = self.vehicle_assigned.vehicle_number
+			driver_on_duty = self.vehicle_assigned.driver.name
+		}
 
 class FuelRecord(Base):
 	
@@ -75,6 +115,16 @@ class FuelRecord(Base):
 	
 	vehicle_id = Column(Integer, ForeignKey("vehicles.id"))
 	vehicle = relationship("Vehicle", back_populates = "fuel_records")
+
+	@property
+	def serialize(self):
+		return {
+			fuel_record_id = self.id,
+			fuel_type = self.fuel_type,
+			fuel_cost = self.fuel_cost,
+			meter_reading = self.meter_reading,
+			date = self.date
+		}
 
 class Vehicle(Base):
 
@@ -106,6 +156,32 @@ class Vehicle(Base):
 	route = relationship("Route", back_populates = "vehicle_assigned")
 
 	fuel_records = relationship("FuelRecord", back_populates = "vehicle")
+
+	@property
+	def serialize(self):
+		return{
+			vehicle_id = self.id,
+			vehicle_number = self.vehicle_number,
+			vehicle_type = self.vehicle_number,
+			model = self.model,
+			year = self.year,
+			insurance_validity = self.insurance_validity,
+			ut_permit_validity = self.ut_permit_validity,
+			haryana_permit_validity = self.haryana_permit_validity,
+			punjab_permit_validity = self.punjab_permit_validity,
+			passenger_tax_paid_upto = self.passenger_tax_paid_upto,
+			pollution_certificate_validity = self.pollution_certificate_validity,
+			fitness_valid_upto = self.fitness_valid_upto,
+			pollution_certificate_validity = self.pollution_certificate_validity,
+			fitness_valid_upto = self.fitness_valid_upto,
+			excise_tax_paid_upto = self.excise_tax_paid_upto,
+			last_service = self.last_service,
+			next_service = self.next_service,
+			last_service = self.last_service,
+			assigned_driver = self.driver.name,
+			route_assigned_to = self.route.route_number
+		}
+			
 
 
 # Making a database engine
