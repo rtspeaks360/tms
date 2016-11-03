@@ -1,7 +1,10 @@
+import requests
 from flask import Flask, render_template, request, redirect, jsonify, url_for
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, Vehicle, Driver, Student, Route, FuelRecord
+
+API_URL = "127.0.0.1:8000"
 
 app = Flask(__name__)
 
@@ -14,7 +17,13 @@ session = DBSession()
 @app.route('/')
 @app.route('/index')
 def homePage():
-	render_template('index.html')
+	params = {
+		'perform_ction' = 'homepage_values'
+	}
+
+	r = requests.post(API_URL + '/v1/homepage', data = params)
+	values = r.json 
+	return render_template('index.html')
 	#return "Home Page!"
 
 @app.route('/driver')
@@ -42,19 +51,19 @@ def showVehicles():
 	return "vehicles Page!"
 
 @app.route('/vehicle/new')
-def addVehicles():
+def addVehicle():
 	return "Add new vehicle page"
 
-@app.route('/vehicle/<int:driver_id>')
-def showDriverDetails():
+@app.route('/vehicle/<int:vehicle_id>')
+def showVehicleetails():
 	return "Vehicle Details Page!"
 
 @app.route('/vehicle/<int:vehicle_id>/edit')
-def editVehicles(vehicle_id):
+def editVehicle(vehicle_id):
 	return "Edit vehicle page!"
 
 @app.route('/vehicle/<int:vehicle_id>/delete')
-def deleteVehicles(vehicle_id):
+def deleteVehicle(vehicle_id):
 	return "Delete vehicles page!"
 
 @app.route('/student')
