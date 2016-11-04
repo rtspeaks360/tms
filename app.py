@@ -20,12 +20,12 @@ def homePage():
 	params = {
 		'perform_action' : 'homepage_values',
 	}
-
+	#return "Home Page!"
 	r = requests.post(API_URL + '/v1/homepage', data = params)
 	print r.json()
 	values = r.json()['homepage_values'] 
 	return render_template('index.html', homepage_values = values)
-	#return "Home Page!"
+	# return "homepage"
 
 @app.route('/driver')
 def showDrivers():
@@ -33,19 +33,36 @@ def showDrivers():
 		'perform_action' : 'get_all_drivers'
 	}
 	r = requests.post(API_URL + '/v1/driver', data = params)
-	print r.json()
+	
+	# print r.json()
 	all_drivers = r.json()['drivers']
-	render_template('drivers.html', drivers = all_drivers)
+	# print all_drivers
+	return render_template('drivers.html', drivers = all_drivers)
 
-@app.route('/driver/new')
+@app.route('/driver/new', methods = ['GET', 'POST'])
 def addDrivers():
-	return "Add new driver page"
+	if request.method == 'POST':
+		new_driver = Driver(name = request.form['name'], son_of = request.form['son_of'], 
+			contact = request.form['contact'], address = request.form['address'],
+			license_type = request.form['license_type'], license_number = request.form['license_number'])
+		session.add(new_driver)
+		session.commit()
+
+		return redirect(url_for('showDrivers'))
+	else:
+		return render_template('newdriver.html')
+	return render_template('newdriver.html')
 
 @app.route('/driver/<int:driver_id>')
 def showDriverDetails(driver_id):
-	return "Driver Details Page!"
+	params = {
+		'perform_action' : 'get_driver_by_id',
+		'id' : driver_id
+	}
+	r = requests.post(API_URL + '/v1/driver', data = params)
+	return render_template('driverdetails.html', driver = r.json()['driver'])
 
-@app.route('/driver/<int:driver_id>/edit')
+@app.route('/driver/<int:driver_id>/edit', methods = ['GET', 'POST'])
 def editDrivers(driver_id):
 	return "Edit Driver page!"
 

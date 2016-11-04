@@ -53,37 +53,47 @@
               <tr>
                 <th>S. No.</th>
                 <th>Name</th>
+                <th>Address</th>
+                <th>Son Of</th>
+                <th>Contact</th>
+                <th>License Number</th>
                 <th>License Type</th>
                 <th>Current Duty</th>
               </tr>
             </thead>
 
             <tbody>
-              {% for d in drivers %}
+                <tr>
+                  <td>{{driver.driver_id}}</td>
+                  <td>{{driver.name}}</td>
+                  <td>{{driver.address}}</td>
+                  <td>{{driver.son_of}}</td>
+                  <td>{{driver.contact}}</td>
+                  <td>{{driver.license_number}}</td>
+                  <td>{{driver.license_type}}</td>
+                  <td>{{driver.current_duty}}</td>
+                  
+                </tr>
                 
-                  <tr>
-                    <td>{{d.driver_id}}</td>
-                    <td>{{d.name}}</td>
-                    <td>{{d.license_type}}</td>
-                    <td>{{d.current_duty}}</td>
-                    <a href="{{url_for('showDriverDetails', driver_id = d.driver_id)}}">
-                      <td>view more</td>
-                    </a>  
-                  </tr>
-                
-              {% endfor %}
+              
             </tbody>
           </table>
         </div>
         
         <br>
-        <div class="row">
-          <div class="col-md-12 form-group">
-            <a href="{{url_for('homePage')}}">
-              <button class="btn pull-right" type="submit">Back to Home</button>
+        <div class="row" display="inline-block">
+          <div class="col-lg-6 form-group pull-right">
+            <a href="{{url_for('deleteDrivers', driver_id = driver.driver_id)}}">
+              <button class="btn " type="submit">Delete</button>
+            </a>
+          </div>
+          <div class="col-lg-6 form-group">
+            <a href="{{url_for('editDrivers', driver_id = driver.driver_id)}}">
+              <button class="btn pull-right" type="submit">Update</button>
             </a>
           </div>
         </div>
+        
         
       </div>
       <br>

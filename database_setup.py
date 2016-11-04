@@ -66,6 +66,10 @@ class Driver(Base):
 
 	@property
 	def serialize(self):
+		if self.vehicle_assigned:
+			current_duty = self.vehicle_assigned.vehicle_number
+		else: 
+			current_duty = "NA"
 		return {
 			'driver_id' : self.id,
 			'name' : self.name,
@@ -74,7 +78,7 @@ class Driver(Base):
 			'address' : self.address,
 			'license_type' : self.license_type,
 			'license_number' : self.license_number,
-			'current_duty' : self.vehicle_assigned.vehicle_number
+			'current_duty' : current_duty
 		}
 
 class Route(Base):
