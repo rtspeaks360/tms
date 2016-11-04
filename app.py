@@ -22,7 +22,7 @@ def homePage():
 	}
 
 	r = requests.post(API_URL + '/v1/homepage', data = params)
-	values = r.json 
+	values = r.json() 
 	return render_template('index.html')
 	#return "Home Page!"
 

@@ -123,7 +123,8 @@ class FuelRecord(Base):
 			'fuel_type' : self.fuel_type,
 			'fuel_cost' : self.fuel_cost,
 			'meter_reading' : self.meter_reading,
-			'date' : self.date
+			'date' : self.date,
+			'vehicle_number' : self.vehicle.vehicle_number
 		}
 
 class Vehicle(Base):
