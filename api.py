@@ -200,7 +200,14 @@ class HomeAPI(restful.Resource):
 			values['students'] = len(session.query(Student).all())
 			values['drivers'] = len(session.query(Driver).all())
 			values['routes'] = len(session.query(Route).all())
-
+			values['fuelrecs'] = len(session.query(FuelRecord).all())
+			fuelrecs = session.query(FuelRecord).all()
+			cost = 0
+			for f in fuelrecs:
+				cost = cost + f.fuel_cost   
+			values['fuelrecs_weekly'] = cost
+			values['fuelrecs_monthly'] = cost
+			values['fuelrecs_quaterly'] = cost
 			return jsonify(homepage_values = values)
 
 api.add_resource(HomeAPI, '/v1/homepage')

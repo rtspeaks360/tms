@@ -1,16 +1,221 @@
 <!DOCTYPE html>
-<html>
-<head>
-	<title>Transport Management System - Homepage</title>
-</head>
-<body>
-	<h1>Students</h1>
-	<a href="{{url_for('showStudents')}}">All Students we have.</a>
-	<h1>Vehicles</h1>
-	<a href="{{url_for('showVehicles')}}">All Vehicles we have.</a>
-	<h1>Routes</h1>
-	<a href="{{url_for('showRoutes')}}">All Routes we have.</a>
-	<h1>Drivers</h1>
-	<a href="{{url_for('showDrivers')}}">All Drivers we have.</a>
-</body>
+<html lang="en">
+  <head>
+    <!-- Made by Rishabh Thukral-->
+    <title>TMS - Home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'css/bootstrap.min.css')}}">
+    <link href="{{url_for('static', filename = 'css/lato.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{url_for('static', filename = 'css/montserrat-regular.css')}}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename = 'css/style.css')}}">
+    
+    <script src="{{url_for('static', filename = 'js/bootstrap.min.js')}}"></script>
+
+  </head>
+  <body id="myPage"  data-target=".navbar" data-offset="50">
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#myPage">TMS</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="{{url_for('showStudents')}}">STUDENTS</a></li>
+            <li><a href="{{url_for('showDrivers')}}">DRIVERS</a></li>
+            <li><a href="{{url_for('showRoutes')}}">ROUTES</a></li>
+            <li><a href="{{url_for('showVehicles')}}">VEHICLES</a></li>
+            <li><a href="{{url_for('showFuelRecords')}}">FUEL</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+
+    <!-- Container (The Band Section) -->
+    <div id="band" class="container text-center">
+      <h3>TRANSPORT MANAGEMENT</h3>
+      <p><em>Let's see!</em></p>
+      <p>The Transportation Management System or TMS is basically a Web Application that has been designed to help the Transport Department of any Institution or a Conglomerate. It helps the Transport officer of the body to manage various records. To name a few to keep a track of students, vehicles, routes, drivers and the fuel records of the department. About the tech, TMS is designed on top of CSS's Twitter Bootstrap framework and the backend of the application is runing on a MICRO-FRAMEWORK for Python named Flask.</p>
+    </div>
+
+    <!-- Container (TOUR Section) -->
+    <div id="tour" class="bg-1">
+      <div class="container">
+        <h3 class="text-center">TMS CAN MANAGE</h3>
+      
+        
+        <div class="row text-center">
+          <div class="col-sm-4">
+            <div class="thumbnail">
+              <img src="{{url_for('static', filename = 'img/students.svg')}}" alt="Students" width="400" height="300">
+              <p><strong>Students</strong></p>
+              <p>Total Students: {{homepage_values['students']}} </p>
+              <a href="{{url_for('showStudents')}}">
+              	<button class="btn" data-toggle="modal">View All</button>
+              </a>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="thumbnail">
+              <img src="{{url_for('static', filename = 'img/vehicle.png')}}" alt="Vehicles" width="400" height="300">
+              <p><strong>Vehicles</strong></p>
+              <p>Total Vehicles: {{homepage_values['vehicles']}}</p>
+              <a href="{{url_for('showVehicles')}}">
+              	<button class="btn" data-toggle="modal" >View All</button>
+              </a>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="thumbnail">
+              <img src="{{url_for('static', filename = 'img/driver.jpg')}}" alt="Drivers" width="400" height="300">
+              <p><strong>Drivers</strong></p>
+              <p>Total Drivers: {{homepage_values['drivers']}}</p>
+              <a href="{{url_for('showDrivers')}}">
+              	<button class="btn" data-toggle="modal" >View All</button>
+            	</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="row text-center">
+          <div class="col-sm-4">
+            <div class="thumbnail">
+              <img src="{{url_for('static', filename = 'img/routes.png')}}" alt="Routes" width="400" height="300">
+              <p><strong>Routes</strong></p>
+              <p>Total Routes: {{homepage_values['routes']}}</p>
+              <a href="{{url_for('showRoutes')}}">
+              	<button class="btn" data-toggle="modal">View All</button>
+            	</a>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="thumbnail">
+              <img src="{{url_for('static', filename = 'img/fuelrecords.jpg')}}" alt="Fuel Records" width="400" height="300">
+              <p><strong>Fuel Records</strong></p>
+              <p>All Fuel Records: {{homepage_values['fuel_recs']}}</p>
+              <a href="{{url_for('showFuelRecords')}}">
+             		<button class="btn" data-toggle="modal" >View All</button>
+            	</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      
+      <!-- Modal -->
+      <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+        
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">×</button>
+              <h4><span class="glyphicon glyphicon-lock"></span> Tickets</h4>
+            </div>
+            <div class="modal-body">
+              <form role="form">
+                <div class="form-group">
+                  <label for="psw"><span class="glyphicon glyphicon-shopping-cart"></span> Tickets, $23 per person</label>
+                  <input type="number" class="form-control" id="psw" placeholder="How many?">
+                </div>
+                <div class="form-group">
+                  <label for="usrname"><span class="glyphicon glyphicon-user"></span> Send To</label>
+                  <input type="text" class="form-control" id="usrname" placeholder="Enter email">
+                </div>
+                  <button type="submit" class="btn btn-block">Pay
+                    <span class="glyphicon glyphicon-ok"></span>
+                  </button>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal">
+                <span class="glyphicon glyphicon-remove"></span> Cancel
+              </button>
+              <p>Need <a href="#">help?</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Container (Contact Section) -->
+    <div id="contact" class="container">
+
+      <h3 class="text-center">Fuel Records</h3>
+      <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#home">Weakly</a></li>
+        <li><a data-toggle="tab" href="#menu1">Monthly</a></li>
+        <li><a data-toggle="tab" href="#menu2">Quaterly</a></li>
+      </ul>
+
+      <div class="tab-content">
+        <div id="home" class="tab-pane fade in active">
+          <p></p>
+          <p>This week's Cost: {{homepage_values['fuelrecs_weekly']}}</p>
+        </div>
+        <div id="menu1" class="tab-pane fade">
+        	<p></p>
+          <p>This month's Cost: {{homepage_values['fuelrecs_monthly']}}</p>
+        </div>
+        <div id="menu2" class="tab-pane fade">
+        	<p></p>
+          <p>This quater's Cost: {{homepage_values['fuelrecs_quaterly']}}</p>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+    <!-- Footer -->
+    <footer class="text-center">
+      <a class="up-arrow" href="#myPage" data-toggle="tooltip" title="TO TOP">
+        <span class="glyphicon glyphicon-chevron-up"></span>
+      </a><br><br>
+      <p>&copy; 2016 RTC. Proudly created by Rishabh Thukral.</p>
+    </footer>
+
+    <script>
+    $(document).ready(function(){
+      // Initialize Tooltip
+      $('[data-toggle="tooltip"]').tooltip();
+      
+      // Add smooth scrolling to all links in navbar + footer link
+      $(".navbar a, footer a[href='#myPage']").on('click', function(event) {
+
+        // Make sure this.hash has a value before overriding default behavior
+        if (this.hash !== "") {
+
+          // Prevent default anchor click behavior
+          event.preventDefault();
+
+          // Store hash
+          var hash = this.hash;
+
+          // Using jQuery's animate() method to add smooth page scroll
+          // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
+          $('html, body').animate({
+            scrollTop: $(hash).offset().top
+          }, 900, function(){
+       
+            // Add hash (#) to URL when done scrolling (default click behavior)
+            window.location.hash = hash;
+          });
+        } // End if
+      });
+    })
+    </script>
+
+  </body>
 </html>
+

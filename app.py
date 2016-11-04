@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, Vehicle, Driver, Student, Route, FuelRecord
 
-API_URL = "127.0.0.1:8000"
+API_URL = "http://127.0.0.1:8000"
 
 app = Flask(__name__)
 
@@ -18,24 +18,31 @@ session = DBSession()
 @app.route('/index')
 def homePage():
 	params = {
-		'perform_ction' = 'homepage_values'
+		'perform_action' : 'homepage_values',
 	}
 
 	r = requests.post(API_URL + '/v1/homepage', data = params)
-	values = r.json() 
-	return render_template('index.html')
+	print r.json()
+	values = r.json()['homepage_values'] 
+	return render_template('index.html', homepage_values = values)
 	#return "Home Page!"
 
 @app.route('/driver')
 def showDrivers():
-	return "Drivers Page!"
+	params = {
+		'perform_action' : 'get_all_drivers'
+	}
+	r = requests.post(API_URL + '/v1/driver', data = params)
+	print r.json()
+	all_drivers = r.json()['drivers']
+	render_template('drivers.html', drivers = all_drivers)
 
 @app.route('/driver/new')
 def addDrivers():
 	return "Add new driver page"
 
 @app.route('/driver/<int:driver_id>')
-def showDriverDetails():
+def showDriverDetails(driver_id):
 	return "Driver Details Page!"
 
 @app.route('/driver/<int:driver_id>/edit')
@@ -51,7 +58,7 @@ def showVehicles():
 	return "vehicles Page!"
 
 @app.route('/vehicle/new')
-def addVehicle():
+def addVehicles():
 	return "Add new vehicle page"
 
 @app.route('/vehicle/<int:vehicle_id>')
