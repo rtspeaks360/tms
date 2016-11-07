@@ -64,23 +64,108 @@ def showDriverDetails(driver_id):
 
 @app.route('/driver/<int:driver_id>/edit', methods = ['GET', 'POST'])
 def editDrivers(driver_id):
-	return "Edit Driver page!"
+	driver1 = Driver(name = "Rajesh", son_of = "Mahesh", contact = "9382737878",
+	address = "123 ambala", license_type = "HMVT", license_number = "HR:012R356543")
+	editedDriver = session.query(Driver).filter(Driver.id == driver_id).one()
+	if request.method == 'POST':
+		if request.form['name']:
+			editedDriver.name = request.form['name']
+		if request.form['son_of']:
+			editedDriver.son_of = request.form['son_of']
+		if request.form['contact']:
+			editedDriver.contact = request.form['contact']
+		if request.form['address']:
+			editedDriver.address = request.form['address']
+		if request.form['license_type']:
+			editedDriver['license_type'] = request.form['license_type']
+		if request.form['license_number']:
+			editedDriver['license_number'] = request.form['license_number']
+		session.add(editedDriver)
+		session.commit()
+		return redirect(url_for('showDrivers'))
+	else:
+		params = {
+			'perform_action' : 'get_driver_by_id',
+			'id' : driver_id
+		}
+		r = requests.post(API_URL + '/v1/driver', data = params)
+		return render_template('editdriver.html', driver = r.json()['driver'])	
+ 
 
-@app.route('/driver/<int:driver_id>/delete')
+@app.route('/driver/<int:driver_id>/delete', methods = ['GET', 'POST'])
 def deleteDrivers(driver_id):
-	return "Delete drivers page!"
+	delete_driver = session.query(Driver).filter(Driver.id == driver_id).one()
+	if request.method == 'POST':
+		session.delete(delete_driver)
+		session.commit()
+		return redirect(url_for('showDrivers'))
+
+	else:
+		params = {
+			'perform_action' : 'get_driver_by_id',
+			'id' : driver_id
+		}
+		r = requests.post(API_URL + '/v1/driver', data = params)
+		return render_template('deletedriver.html', driver = r.json()['driver'])
+
+@app.route('/route')
+def showRoutes():
+	params = {
+		'perform_action' : 'get_all_routes'
+	}
+	r = requests.post(API_URL + '/v1/route', data = params)
+	
+	# print r.json()
+	all_routes = r.json()['routes']
+	# print all_drivers
+	return render_template('routes.html', routes = all_routes)
+
+@app.route('/route/new')
+def addRoutes():
+	return "Add new route page"
+
+@app.route('/route/<int:route_id>')
+def showRouteDetails(route_id):
+	params = {
+		'perform_action' : 'get_route_by_id',
+		'id' : route_id
+	}
+	r = requests.post(API_URL + '/v1/route', data = params)
+	return render_template('routedetails.html', route = r.json()['route'])
+
+@app.route('/route/<int:route_id>/edit')
+def editRoutes(route_id):
+	return "Edit route page!"
+
+@app.route('/route/<int:route_id>/delete')
+def deleteRoutes(route_id):
+	return "Delete routes page!"
 
 @app.route('/vehicle')
 def showVehicles():
-	return "vehicles Page!"
+	params = {
+		'perform_action' : 'get_all_vehicles'
+	}
+	r = requests.post(API_URL + '/v1/vehicle', data = params)
+	
+	# print r.json()
+	all_vehicles = r.json()['vehicles']
+	# print all_drivers
+	return render_template('vehicles.html', vehicles = all_vehicles)
+	
 
 @app.route('/vehicle/new')
 def addVehicles():
 	return "Add new vehicle page"
 
 @app.route('/vehicle/<int:vehicle_id>')
-def showVehicleetails():
-	return "Vehicle Details Page!"
+def showVehicleDetails(vehicle_id):
+	params = {
+		'perform_action' : 'get_vehicle_by_id',
+		'id' : vehicle_id
+	}
+	r = requests.post(API_URL + '/v1/vehicle', data = params)
+	return render_template('vehicledetails.html', vehicle = r.json()['vehicle'])
 
 @app.route('/vehicle/<int:vehicle_id>/edit')
 def editVehicle(vehicle_id):
@@ -92,11 +177,28 @@ def deleteVehicle(vehicle_id):
 
 @app.route('/student')
 def showStudents():
-	return "students Page!"
+	params = {
+		'perform_action' : 'get_all_students'
+	}
+	r = requests.post(API_URL + '/v1/student', data = params)
+	
+	# print r.json()
+	all_students = r.json()['students']
+	# print all_drivers
+	return render_template('students.html', students = all_students)
 
 @app.route('/student/new')
 def addStudents():
 	return "Add new student page"
+
+@app.route('/student/<int:student_id>')
+def showStudentDetails():
+	params = {
+		'perform_action' : 'get_student_by_id',
+		'id' : student_id
+	}
+	r = requests.post(API_URL + '/v1/student', data = params)
+	return render_template('studentdetails.html', student = r.json()['student'])
 
 @app.route('/student/<int:student_id>/edit')
 def editStudents(student_id):
@@ -106,36 +208,37 @@ def editStudents(student_id):
 def deleteStudents(student_id):
 	return "Delete students page!"
 
-@app.route('/route')
-def showRoutes():
-	return "routes Page!"
-
-@app.route('/route/new')
-def addRoutes():
-	return "Add new route page"
-
-@app.route('/route/<int:route_id>/edit')
-def editRoutes(route_id):
-	return "Edit route page!"
-
-@app.route('/route/<int:route_id>/delete')
-def deleteRoutes(route_id):
-	return "Delete routes page!"
-
 @app.route('/fuel_records')
 def showFuelRecords():
-	return "fuel_recordss Page!"
+	params = {
+		'perform_action' : 'get_all_fuelrecs'
+	}
+	r = requests.post(API_URL + '/v1/fuelrecs', data = params)
+	
+	# print r.json()
+	all_fuelrecs = r.json()['fuelrecs']
+	# print all_drivers
+	return render_template('fuelrecords.html', fuelrecs = all_fuelrecs)
 
 @app.route('/fuel_records/new')
 def addFuelRecords():
 	return "Add new fuel_records page"
 
-@app.route('/fuel_records/<int:fuel_records_id>/edit')
-def editFuelRecords(fuel_records_id):
+@app.route('/fuel_records/<int:fuel_record_id>')
+def showFuelRecordDetails(fuel_record_id):
+	params = {
+		'perform_action' : 'get_fuelrec_by_id',
+		'id' : fuel_record_id
+	}
+	r = requests.post(API_URL + '/v1/fuelrecs', data = params)
+	return render_template('fuelrecorddetails.html', fuelrec = r.json()['fuelrec'])	
+
+@app.route('/fuel_records/<int:fuel_record_id>/edit')
+def editFuelRecords(fuel_record_id):
 	return "Edit fuel_records page!"
 
-@app.route('/fuel_records/<int:fuel_records_id>/delete')
-def deleteFuelRecords(fuel_records_id):
+@app.route('/fuel_records/<int:fuel_record_id>/delete')
+def deleteFuelRecords(fuel_record_id):
 	return "Delete fuel_recordss page!"
 
 if __name__ == '__main__':

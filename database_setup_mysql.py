@@ -100,7 +100,7 @@ class Route(Base):
 		return {
 			'route_id' : self.id,
 			'route_number' : self.route_number,
-			'destination_city' : self.destination_city,
+			'destination_city' : self.route_number,
 			'vehicle_assigned' : self.vehicle_assigned.vehicle_number,
 			'driver_on_duty' : self.vehicle_assigned.driver.name
 		}
@@ -190,6 +190,6 @@ class Vehicle(Base):
 
 
 # Making a database engine
-engine = create_engine("postgresql+psycopg2://postgres:root@localhost:5432/tms")
+engine = create_engine("mysql+mysqlconnector://root:root@localhost:3306/tms")
 
 Base.metadata.create_all(engine)

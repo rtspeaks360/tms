@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <!-- Made by Rishabh Thukral-->
-    <title>TMS - Drivers</title>
+    <title>TMS - Fuel Records</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{url_for('static', filename = 'css/bootstrap.min.css')}}">
@@ -41,51 +41,64 @@
 
     <!-- Container (Contact Section) -->
     <div id="contact" class="container">
-      <h3 class="text-center">DRIVERS DATA</h3>
-      <p class="text-center"><em>Employed drivers are as follows!</em></p>
+      <h3 class="text-center">FUEL RECORDS DATA</h3>
+      <p class="text-center"><em>Recorded data is as follows!</em></p>
 
       <div class="row">
         
         <div class="table-responsive">
           <table class = "table">
-            <caption>Driver Records Table</caption>
+            <caption>Fuel Record Data Table</caption>
             <thead>
               <tr>
-                <th>S. No.</th>
-                <th>Name</th>
-                <th>License Type</th>
-                <th>Current Duty</th>
+                <th>Field</th>
+                <th>Value</th>
               </tr>
             </thead>
 
             <tbody>
-              {% for d in drivers %}
-                
-                  <tr>
-                    <td>{{d.driver_id}}</td>
-                    <td>{{d.name}}</td>
-                    <td>{{d.license_type}}</td>
-                    <td>{{d.current_duty}}</td>
-                    <td>
-                    <a href="{{url_for('showDriverDetails', driver_id = d.driver_id)}}">
-                      view more
-                    </a>
-                    </td>  
-                  </tr>
-                
-              {% endfor %}
+              <tr>
+                <td>Vehicle Number</td>
+                <td>{{fuelrec.vehicle_number}}</td>
+              </tr>
+
+              <tr>
+                <td>Date</td>
+                <td>{{fuelrec.date}}</td>
+              </tr>
+
+              <tr>
+                <td>Fuel Type</td>
+                <td>{{fuelrec.fuel_type}}</td>
+              </tr>
+
+              <tr>
+                <td>Fuel Cost</td>
+                <td>Rs {{fuelrec.fuel_cost}}</td>
+              </tr>
+
+              <tr>
+                <td>Meter Reading</td>
+                <td>{{fuelrec.meter_reading}} Kms</td>
+              </tr>
             </tbody>
           </table>
         </div>
         
         <br>
-        <div class="row">
-          <div class="col-md-12 form-group">
-            <a href="{{url_for('addDrivers')}}">
-              <button class="btn pull-right" type="submit">Add Driver</button>
+        <div class="row" display="inline-block">
+          <div class="col-lg-6 form-group pull-right">
+            <a href="{{url_for('deleteFuelRecords', fuel_record_id = fuelrec.fuel_record_id)}}">
+              <button class="btn " type="submit">Delete</button>
+            </a>
+          </div>
+          <div class="col-lg-6 form-group">
+            <a href="{{url_for('editFuelRecords', fuel_record_id = fuelrec.fuel_record_id)}}">
+              <button class="btn pull-right" type="submit">Update</button>
             </a>
           </div>
         </div>
+        
         
       </div>
       <br>

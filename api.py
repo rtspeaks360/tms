@@ -74,7 +74,7 @@ class RouteAPI(restful.Resource):
 		if args['perform_action'] == 'get_route_by_id':
 			route_query_result = session.query(Route).filter(Route.id == args['id']).one()
 			route = route_query_result.serialize
-			route['number_of_students'] = session.query(Student).filter(Student.route_id == args['id']).all().count()
+			route['number_of_students'] = len(session.query(Student).filter(Student.route_id == args['id']).all())
 			return jsonify(route  = route)
 
 		if args['perform_action'] == 'add_route':
@@ -210,6 +210,47 @@ class HomeAPI(restful.Resource):
 			values['fuelrecs_quaterly'] = cost
 			return jsonify(homepage_values = values)
 
+class FuelRecordAPI(restful.Resource):
+	def post(self):
+		args = request_args6.parse_args()
+
+		if args['perform_action'] == "get_all_fuelrecs":
+			fuelrecs_query_result = session.query(FuelRecord).all()
+			fuelrecs = []
+			for f in fuelrecs_query_result:
+				fuelrecs.append(f.serialize)
+			return jsonify(fuelrecs = fuelrecs)
+
+		if args['perform_action'] == "get_fuelrec_by_id":
+			fuelrec_query_result = session.query(FuelRecord).filter(FuelRecord.id == args['id']).one()
+			fuelrec = fuelrec_query_result.serialize
+			return jsonify(fuelrec  = fuelrec)
+
+		if args['perform_action'] == "add_fuelrec":
+			vehicle = session.query(Vehicle).filter(Vehicle.vehicle_number == args['vehicle_number']).one()
+			fuelrec = FuelRecord(fuel_type = args['fuel_type'], fuel_cost = args['fuel_cost'],
+				meter_reading = args['meter_reading'], date = args['date'], vehicle = vehicle)
+			session.add(fuelrec)
+			session.commit()
+			return jsonify(message = "fuelrec added")
+
+		if args['perform_action'] == "delete_fuelrec":
+			fuelrec = session.query(FuelRecord).filter(FuelRecord.id == args['id']).one()
+			session.delete(fuelrec)
+			session.commit()
+			return jsonify(message = "fuelrec Deleted")			
+
+
+api.add_resource(FuelRecordAPI, '/v1/fuelrecs')
+request_args6 = reqparse.RequestParser(bundle_errors = True)
+request_args6.add_argument('perform_action', type = str, required = True, location = 'form')
+request_args6.add_argument('id', type = str, required = False, location = 'form')
+request_args6.add_argument('fuel_type', type = str, required = False, location = 'form')
+request_args6.add_argument('fuel_cost', type = str, required = False, location = 'form')
+request_args6.add_argument('meter_reading', type = str, required = False, location = 'form')
+request_args6.add_argument('date', type = str, required = False, location = 'form')
+request_args6.add_argument('vehicle_number', type = str, required = False, location = 'form')
+
 api.add_resource(HomeAPI, '/v1/homepage')
 request_args5 = reqparse.RequestParser(bundle_errors = True)
 request_args5.add_argument('perform_action', type = str, required = True, location = 'form')
@@ -269,7 +310,6 @@ request_args1.add_argument('contact', type = str, required = False, location = '
 request_args1.add_argument('address', type = str, required = False, location = 'form')
 request_args1.add_argument('license_type', type = str, required = False, location = 'form')
 request_args1.add_argument('license_number', type = str, required = False, location = 'form')
-
 
 @application.after_request
 def after_request(response):

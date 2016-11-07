@@ -38,59 +38,50 @@
       </div>
     </nav>
 
-
-    <!-- Container (Contact Section) -->
     <div id="contact" class="container">
-      <h3 class="text-center">DRIVERS DATA</h3>
-      <p class="text-center"><em>Employed drivers are as follows!</em></p>
+      <h3 class="text-center">UPDATING DRIVER</h3>
+      <p class="text-center"><em>Enter the details to be changed for {{driver.name}} below!</em></p>
 
       <div class="row">
+        <form action="#" method="post">
         
-        <div class="table-responsive">
-          <table class = "table">
-            <caption>Driver Records Table</caption>
-            <thead>
-              <tr>
-                <th>S. No.</th>
-                <th>Name</th>
-                <th>License Type</th>
-                <th>Current Duty</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {% for d in drivers %}
-                
-                  <tr>
-                    <td>{{d.driver_id}}</td>
-                    <td>{{d.name}}</td>
-                    <td>{{d.license_type}}</td>
-                    <td>{{d.current_duty}}</td>
-                    <td>
-                    <a href="{{url_for('showDriverDetails', driver_id = d.driver_id)}}">
-                      view more
-                    </a>
-                    </td>  
-                  </tr>
-                
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-        
-        <br>
         <div class="row">
-          <div class="col-md-12 form-group">
-            <a href="{{url_for('addDrivers')}}">
-              <button class="btn pull-right" type="submit">Add Driver</button>
-            </a>
+          <div class="col-sm-6 form-group">
+            <input class="form-control" id="name" name="name" placeholder="{{driver.name}}" type="text" >
+          </div>
+          <div class="col-sm-6 form-group">
+            <input class="form-control" id="contact" name="contact" placeholder="{{driver.contact}}" type="text" >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 form-group">
+            <input class="form-control" id="son_of" name="son_of" placeholder="{{driver.son_of}}" type="text" >
+          </div>
+          <div class="col-sm-6 form-group">
+            <input class="form-control" id="address" name="address" placeholder="{{driver.address}}" type="text" >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 form-group">
+            <input class="form-control" id="license_type" name="license_type" placeholder="{{driver.license_type}}" type="text" >
+          </div>
+          <div class="col-sm-6 form-group">
+            <input class="form-control" id="license_number" name="license_number" placeholder="{{driver.license_number}}" type="text" >
           </div>
         </div>
         
+        <div class="row">
+          <div class="col-md-12 form-group">
+            <input class="btn pull-right" type="submit" value="Update">
+          </div>
+        </div>
+        </form>
       </div>
       <br>
      
     </div>
+
+  
 
 
 

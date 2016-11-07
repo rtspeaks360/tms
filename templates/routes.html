@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <!-- Made by Rishabh Thukral-->
-    <title>TMS - Drivers</title>
+    <title>TMS - Routes</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{url_for('static', filename = 'css/bootstrap.min.css')}}">
@@ -41,33 +41,34 @@
 
     <!-- Container (Contact Section) -->
     <div id="contact" class="container">
-      <h3 class="text-center">DRIVERS DATA</h3>
-      <p class="text-center"><em>Employed drivers are as follows!</em></p>
+      <h3 class="text-center">ROUTES DATA</h3>
+      <p class="text-center"><em>Routes of vehicles are as follows!</em></p>
 
       <div class="row">
         
         <div class="table-responsive">
           <table class = "table">
-            <caption>Driver Records Table</caption>
+            <caption>Route Records Table</caption>
             <thead>
               <tr>
                 <th>S. No.</th>
-                <th>Name</th>
-                <th>License Type</th>
-                <th>Current Duty</th>
+                <th>Route</th>
+                <th>Destination City</th>
+                <th>Vehicle</th>
+                <th></th>
               </tr>
             </thead>
 
             <tbody>
-              {% for d in drivers %}
+              {% for r in routes %}
                 
                   <tr>
-                    <td>{{d.driver_id}}</td>
-                    <td>{{d.name}}</td>
-                    <td>{{d.license_type}}</td>
-                    <td>{{d.current_duty}}</td>
+                    <td>{{r.route_number}}</td>
+                    <td>Route {{r.route_number}}</td>
+                    <td>{{r.destination_city}}</td>
+                    <td>{{r.vehicle_assigned}}</td>
                     <td>
-                    <a href="{{url_for('showDriverDetails', driver_id = d.driver_id)}}">
+                    <a href="{{url_for('showRouteDetails', route_id = r.route_id)}}">
                       view more
                     </a>
                     </td>  
@@ -81,8 +82,8 @@
         <br>
         <div class="row">
           <div class="col-md-12 form-group">
-            <a href="{{url_for('addDrivers')}}">
-              <button class="btn pull-right" type="submit">Add Driver</button>
+            <a href="{{url_for('addRoutes')}}">
+              <button class="btn pull-right" type="submit">Add Route</button>
             </a>
           </div>
         </div>
