@@ -184,7 +184,8 @@ class Vehicle(Base):
 			'next_service' : self.next_service,
 			'last_service' : self.last_service,
 			'assigned_driver' : self.driver.name,
-			'route_assigned_to' : self.route.route_number
+			'route_assigned_to' : self.route.route_number,
+			'last_battery_change' : self.last_battery_change
 		}
 			
 

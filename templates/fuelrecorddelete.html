@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <!-- Made by Rishabh Thukral-->
-    <title>TMS - Vehicles</title>
+    <title>TMS - Students</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{url_for('static', filename = 'css/bootstrap.min.css')}}">
@@ -41,112 +41,39 @@
 
     <!-- Container (Contact Section) -->
     <div id="contact" class="container">
-      <h3 class="text-center">VEHICLES DATA</h3>
-      <p class="text-center"><em>Data for Vehicle {{vehicle.vehicle_number}} is as follows!</em></p>
+      <h3 class="text-center">DELETE STUDENT</h3>
+      <p class="text-center"><em>Your actions on this page may not be reversible!</em></p>
 
       <div class="row">
         
-        <div class="table-responsive">
-          <table class = "table">
-            <caption>Vehicle Data Table</caption>
-            <thead>
-              <tr>
-                <th>Field</th>
-                <th>Value</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Vehicle Number</td>
-                <td>{{vehicle.vehicle_number}}</td>
-              </tr>
-              <tr>
-                <td>Model</td>
-                <td>{{vehicle.model}}</td>
-              </tr>
-              <tr>
-                <td>Year</td>
-                <td>{{vehicle.year}}</td>
-              </tr>
-              <tr>
-                <td>Vehicle Type</td>
-                <td>{{vehicle.vehicle_type}}</td>
-              </tr>
-              <tr>
-                <td>Assigned Driver</td>
-                <td>{{vehicle.assigned_driver}}</td>
-              </tr>
-              <tr>
-                <td>Route Assigned to</td>
-                <td>Route {{vehicle.route_assigned_to}}</td>
-              </tr>
-              <tr>
-                <td>Excise Tax Paid Upto</td>
-                <td>{{vehicle.excise_tax_paid_upto}}</td>
-              </tr>
-              <tr>
-                <td>Fitness Valid Upto</td>
-                <td>{{vehicle.fitness_valid_upto}}</td>
-              </tr>
-              <tr>
-                <td>Haryana Permit</td>
-                <td>{{vehicle.haryana_permit_validity}}</td>
-              </tr>
-              <tr>
-                <td>Punjab Permit</td>
-                <td>{{vehicle.punjab_permit_validity}}</td>
-              </tr>
-              <tr>
-                <td>UT Permit</td>
-                <td>{{vehicle.ut_permit_validity}}</td>
-              </tr>
-              <tr>
-                <td>Insurance Valid Upto</td>
-                <td>{{vehicle.insurance_validity}}</td>
-              </tr>
-              <tr>
-                <td>Last Service</td>
-                <td>{{vehicle.last_service}}</td>
-              </tr>
-              <tr>
-                <td>Next Service</td>
-                <td>{{vehicle.next_service}}</td>
-              </tr>
-              <tr>
-                <td>Passenger Tax Paid Upto</td>
-                <td>{{vehicle.passenger_tax_paid_upto}}</td>
-              </tr>
-              <tr>
-                <td>Pollution Certificate Validity</td>
-                <td>{{vehicle.pollution_certificate_validity}}</td>
-              </tr>  
-              <tr>
-                <td>Last Battery Change</td>
-                <td>{{vehicle.last_battery_change}}</td>
-              </tr>
-            </tbody>
-          </table>
+      
+        <div class="row">
+          <div class="col-sm-6">
+            <p>Are you sure you want to delete this Fuel Record for{{fuelrec.vehicle_number}} Vehicle?</p>  
+          </div>
+          
         </div>
         
         <br>
-        <div class="row" display="inline-block">
-          <div class="col-lg-6 form-group pull-right">
-            <a href="{{url_for('deleteVehicle', vehicle_id = vehicle.vehicle_id)}}">
-              <button class="btn " type="submit">Delete</button>
-            </a>
-          </div>
-          <div class="col-lg-6 form-group">
-            <a href="{{url_for('editVehicle', vehicle_id = vehicle.vehicle_id)}}">
-              <button class="btn pull-right" type="submit">Update</button>
-            </a>
-          </div>
-        </div>
+        <form action="#" method="POST">
+          <div class="row">
+            <div class="col-md-10 form-group">
+              <input class="btn pull-right" type="submit" value="Confirm DELETE!">
+            </div>
+          </div>  
+        </form>
         
         
+        <br>
+        <br>
+        <br>
+        <br>
       </div>
       <br>
      
     </div>
+
+    
 
 
 

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Made by Rishabh Thukral-->
+    <title>TMS - Routes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'css/bootstrap.min.css')}}">
+    <link href="{{url_for('static', filename = 'css/lato.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{url_for('static', filename = 'css/montserrat-regular.css')}}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename = 'css/style.css')}}">
+    
+    <script src="{{url_for('static', filename = 'js/bootstrap.min.js')}}"></script>
+
+  </head>
+  <body id="myPage"  data-target=".navbar" data-offset="50">
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{{url_for('homePage')}}">TMS</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="{{url_for('showStudents')}}">STUDENTS</a></li>
+            <li><a href="{{url_for('showDrivers')}}">DRIVERS</a></li>
+            <li><a href="{{url_for('showRoutes')}}">ROUTES</a></li>
+            <li><a href="{{url_for('showVehicles')}}">VEHICLES</a></li>
+            <li><a href="{{url_for('showFuelRecords')}}">FUEL</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div id="contact" class="container">
+      <h3 class="text-center">ADDING ROUTES</h3>
+      <p class="text-center"><em>Enter the details below!</em></p>
+      <br>
+
+      <div class="row">
+        <form action="#" method="post">
+        <div class="row"></div>  
+        <div class="row">
+          <div class="col-sm-6 form-group">
+            <input class="form-control" id="route_number" name="route_number" placeholder="Route Number" type="number" required>
+          </div>
+          <div class="col-sm-6 form-group">
+            <input class="form-control" id="destination_city" name="destination_city" placeholder="Destination City" type="text" required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 form-group">
+            <p></p>
+            <input class="btn pull-right" type="submit" value="Create">
+          </div>
+        </div>
+        </form>
+      </div>
+      <br>
+      <br>
+      <br>
+     
+    </div>
+
+  
+
+
+
+
+    <!-- Footer -->
+    <footer class="text-center">
+      <a class="up-arrow" href="#myPage" data-toggle="tooltip" title="TO TOP">
+        <span class="glyphicon glyphicon-chevron-up"></span>
+      </a><br><br>
+      <p>&copy; 2016 RTC. Proudly created by Rishabh Thukral.</p>
+    </footer>
+
+    <script>
+    $(document).ready(function(){
+      // Initialize Tooltip
+      $('[data-toggle="tooltip"]').tooltip();
+      
+      // Add smooth scrolling to all links in navbar + footer link
+      $(".navbar a, footer a[href='#myPage']").on('click', function(event) {
+
+        // Make sure this.hash has a value before overriding default behavior
+        if (this.hash !== "") {
+
+          // Prevent default anchor click behavior
+          event.preventDefault();
+
+          // Store hash
+          var hash = this.hash;
+
+          // Using jQuery's animate() method to add smooth page scroll
+          // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
+          $('html, body').animate({
+            scrollTop: $(hash).offset().top
+          }, 900, function(){
+       
+            // Add hash (#) to URL when done scrolling (default click behavior)
+            window.location.hash = hash;
+          });
+        } // End if
+      });
+    })
+    </script>
+
+  </body>
+</html>
