@@ -375,7 +375,7 @@ def deleteStudents(student_id):
 			'id' : student_id
 		}
 		r = requests.post(API_URL + '/v1/student', data = params)
-		return render_template('studentdelete.html', route = r.json()['student'])
+		return render_template('studentdelete.html', student = r.json()['student'])
 
 @app.route('/fuel_records')
 def showFuelRecords():
